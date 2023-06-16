@@ -3,7 +3,10 @@
 <head>
     <title>请输入密码</title>
     <script type="text/javascript">
-        function checkPassword() {
+        function checkPassword(event) {
+            // 阻止表单默认的提交行为
+            event.preventDefault();
+
             // 获取用户输入的密码
             var password = document.getElementById("password").value;
             // 设置正确的密码
@@ -21,7 +24,10 @@
 </head>
 <body>
     <h1>请输入密码</h1>
-    <input type="password" id="password">
-    <button onclick="checkPassword()">提交</button>
+    <!-- 添加一个表单，当用户按回车键或点击提交按钮时，都会触发表单的提交事件 -->
+    <form onsubmit="checkPassword(event)">
+        <input type="password" id="password">
+        <button type="submit">提交</button>
+    </form>
 </body>
 </html>
