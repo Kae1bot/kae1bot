@@ -2,8 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>我的网站首页...</title>
+<title>我的网站首页1</title>
 <style>
+    .link-container {
+        display: flex;
+        justify-content: space-between;
+    }
     .link {
         font-size:1.2em;
         color:#0781de;
@@ -18,20 +22,22 @@
         text-overflow:ellipsis;
         text-decoration:none;
         padding:10px;
-        margin-down:1000px;
+        margin:10px;
     }
 </style>
 </head>
 <body>
 <p>欢迎来到我的网站。</p>
-  
-<a href="http://139.180.178.214:2023/#" class="link" target="_blank">
-我的Web ChatGPT 3.5 <br>
-</a>
 
-<a href="http://20.200.209.173:1002/#" class="link" target="_blank">
-我的Web ChatGPT 4.0 <br>
-</a>
+<div class="link-container">
+    <a href="http://139.180.178.214:2023/#" class="link" target="_blank">
+    我的Web ChatGPT 3.5 <br>
+    </a>
+
+    <a href="http://20.200.209.173:1002/#" class="link" target="_blank">
+    我的Web ChatGPT 4.0 <br>
+    </a>
+</div>
 
 </body>
 </html>
