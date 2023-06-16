@@ -9,7 +9,7 @@
     <h2 id="exp">Experience: 0</h2>
     <button id="chopWood" onclick="gainExp('chop')">Chop Wood (+10 exp)</button>
     <button id="hunt" onclick="gainExp('hunt')" style="display: none;">Hunt (+20 exp)</button>
-    <button id="read" onclick="gainExp('read')">Read Book (Level * 0.1 exp)</button>
+    <button id="read" onclick="gainExp('read')">Read Book</button>
 
     <script>
         // 初始化等级和经验值
@@ -46,7 +46,7 @@
         var actions = {
             'chop': 10, // 砍柴
             'hunt': 20,  // 打猎
-            'read': function() { return level * 0.1; }  // 读书
+            'read': function() { return level * 10; }  // 读书
         };
 
         function gainExp(action) {
