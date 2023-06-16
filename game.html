@@ -27,8 +27,9 @@
             // 检查经验值是否足够升级
             if (exp >= level * 100) {
                 // 升级，并减去升级所需的经验值
-                level++;
-                exp -= level * 100;
+               exp -= level * 100;
+               level++;
+
 
                 // 检查是否达到解锁新行动的等级
                 if (level == 2) {
