@@ -4,6 +4,7 @@
     <title>Game</title>
 </head>
 <body>
+    <h1 id="rank">Rank: 贫民</h1>
     <h1 id="level">Level: 1</h1>
     <h2 id="exp">Experience: 0</h2>
     <button id="chopWood" onclick="gainExp('chop')">Chop Wood (+10 exp)</button>
@@ -13,6 +14,7 @@
         // 初始化等级和经验值
         var level = 1;
         var exp = 0;
+        var rank = "贫民";
 
         // 定义两种获得经验的方式
         var actions = {
@@ -25,16 +27,22 @@
             exp += actions[action];
 
             // 检查经验值是否足够升级
-            if (exp >= level * 100) {
+            while (exp >= level * 100) {
                 // 升级，并减去升级所需的经验值
-               exp -= level * 100;
-               level++;
-
+                exp -= level * 100;
+                level++;
 
                 // 检查是否达到解锁新行动的等级
                 if (level == 2) {
                     // 解锁打猎
                     document.getElementById('hunt').style.display = "block";
+                }
+
+                // 检查等级是否足够升阶
+                if (level == 10) {
+                    // 升阶为平民
+                    rank = "平民";
+                    document.getElementById('rank').textContent = "Rank: " + rank;
                 }
             }
 
