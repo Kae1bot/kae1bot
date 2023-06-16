@@ -59,7 +59,28 @@
                 exp += actions[action];
             }
 
-            // 其它代码没有改变...
+            while (exp >= level * 100) {
+                // 升级，并减去升级所需的经验值
+                exp -= level * 100;
+                level++;
+
+                // 检查是否达到解锁新行动的等级
+                if (level == 2) {
+                    // 解锁打猎
+                    document.getElementById('hunt').style.display = "block";
+                }
+
+                // 检查等级是否足够升阶
+                if (rankIndex < ranks.length - 1 && level >= ranks[rankIndex + 1].level) {
+                    // 升阶
+                    rankIndex++;
+                    document.getElementById('rank').textContent = "Rank: " + ranks[rankIndex].rank;
+                }
+            }
+
+            // 更新显示的等级和经验值
+            document.getElementById('level').textContent = "Level: " + level;
+            document.getElementById('exp').textContent = "Experience: " + exp;
         }
     </script>
 </body>
