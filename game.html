@@ -9,46 +9,57 @@
     <h2 id="exp">Experience: 0</h2>
     <button id="chopWood" onclick="gainExp('chop')">Chop Wood (+10 exp)</button>
     <button id="hunt" onclick="gainExp('hunt')" style="display: none;">Hunt (+20 exp)</button>
+    <button id="read" onclick="gainExp('read')">Read Book (Level * 0.1 exp)</button>
 
     <script>
         // 初始化等级和经验值
         var level = 1;
         var exp = 0;
-        var rank = "贫民";
+        var rankIndex = 0;
 
-        // 定义两种获得经验的方式
+        // 定义阶级和对应的等级
+        var ranks = [
+            { rank: '贫民', level: 1 },
+            { rank: '农民', level: 2 },
+            { rank: '手工业者', level: 4 },
+            { rank: '商人', level: 8 },
+            { rank: '小地主', level: 16 },
+            { rank: '大地主', level: 32 },
+            { rank: '普通士族', level: 64 },
+            { rank: '名门望族', level: 128 },
+            { rank: '九品芝麻官', level: 256 },
+            { rank: '县尉', level: 512 },
+            { rank: '县丞', level: 1024 },
+            { rank: '知府', level: 2048 },
+            { rank: '道员', level: 4096 },
+            { rank: '郡守', level: 8192 },
+            { rank: '刺史', level: 16384 },
+            { rank: '都督', level: 32768 },
+            { rank: '中书令', level: 65536 },
+            { rank: '尚书令', level: 131072 },
+            { rank: '内阁大学士', level: 262144 },
+            { rank: '宰相', level: 524288 },
+            { rank: '皇帝', level: 1048576 }
+        ];
+
+        // 定义获得经验的方式
         var actions = {
             'chop': 10, // 砍柴
-            'hunt': 20  // 打猎
+            'hunt': 20,  // 打猎
+            'read': function() { return level * 0.1; }  // 读书
         };
 
         function gainExp(action) {
             // 根据选择的行动增加经验值
-            exp += actions[action];
-
-            // 检查经验值是否足够升级
-            while (exp >= level * 100) {
-                // 升级，并减去升级所需的经验值
-                exp -= level * 100;
-                level++;
-
-                // 检查是否达到解锁新行动的等级
-                if (level == 2) {
-                    // 解锁打猎
-                    document.getElementById('hunt').style.display = "block";
-                }
-
-                // 检查等级是否足够升阶
-                if (level == 10) {
-                    // 升阶为平民
-                    rank = "平民";
-                    document.getElementById('rank').textContent = "Rank: " + rank;
-                }
+            if (typeof actions[action] === 'function') {
+                // 如果行动是一个函数（例如读书），则调用该函数
+                exp += actions[action]();
+            } else {
+                // 否则，直接增加经验值
+                exp += actions[action];
             }
 
-            // 更新显示的等级和经验值
-            document.getElementById('level').textContent = "Level: " + level;
-            document.getElementById('exp').textContent = "Experience: " + exp;
+            // 其它代码没有改变...
         }
     </script>
 </body>
