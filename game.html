@@ -4,18 +4,28 @@
     <title>Game v1</title>
 </head>
 <body>
-    <h1 id="rank">Rank: 贫民</h1>
-    <h1 id="level">Level: 1</h1>
-    <h2 id="exp">Experience: 0</h2>
-    <button id="chopWood" onclick="gainExp('chop')">Chop Wood (+10 exp)</button>
-    <button id="hunt" onclick="gainExp('hunt')" style="display: none;">Hunt (+20 exp)</button>
-    <button id="read" onclick="gainExp('read')">Read Book</button>
-
+    
+    <div id="login">
+        Username: <input id="username" type="text"><br>
+        Password: <input id="password" type="password"><br>
+        <button onclick="login()">Login</button>
+        <button onclick="register()">Register</button>
+    </div>
+    <div id="game" style="display: none;">
+        <h1 id="rank">Rank: 贫民</h1>
+        <h1 id="level">Level: 1</h1>
+        <h2 id="exp">Experience: 0</h2>
+        <button id="chopWood" onclick="gainExp('chop')">Chop Wood</button>
+        <button id="hunt" onclick="gainExp('hunt')" style="display: none;">Hunt</button>
+        <button id="read" onclick="gainExp('read')">Read Book</button>
+        <button onclick="saveProgress()">Save Progress</button>
+    </div>
     <script>
         // 初始化等级和经验值
         var level = 1;
         var exp = 0;
         var rankIndex = 0;
+        var username = "";
 
         // 定义阶级和对应的等级
         var ranks = [
@@ -41,6 +51,80 @@
             { rank: '宰相', level: 524288 },
             { rank: '皇帝', level: 1048576 }
         ];
+        
+        async function register() {
+            username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            const response = await fetch('http://20.200.209.173:3000/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                alert("注册成功");
+                console.log(data.message);
+            } else {
+                const data = await response.json();
+                console.error(data.message);
+            }
+        }
+
+        async function login() {
+            username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            const response = await fetch('http://20.200.209.173:3000/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Login successful!');
+                alert("登录成功");
+                level = data.progress.level;
+                exp = data.progress.exp;
+                rankIndex = data.progress.rankIndex;
+                document.getElementById('login').style.display = 'none';
+                document.getElementById('game').style.display = 'block';
+                updateGame();
+            } else {
+                const data = await response.json();
+                if (response.status === 401) {
+                    alert("用户名/密码错误");
+                }
+                console.error(data.message);
+            }
+        }
+
+        async function saveProgress() {
+            const progress = { level, exp, rankIndex };
+
+            const response = await fetch('http://20.200.209.173:3000/save', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, progress })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data.message);
+                alert("保存成功");
+            } else {
+                const data = await response.json();
+                console.error(data.message);
+            }
+        }
+
+        function updateGame()  {
+            document.getElementById('level').textContent = "Level: " + level;
+            document.getElementById('exp').textContent = "Experience: " + exp;
+            document.getElementById('rank').textContent = "Rank: " + ranks[rankIndex].rank;
+        }
 
         // 定义获得经验的方式
         var actions = {
@@ -61,7 +145,7 @@
 
             while (exp >= level * 100) {
                 // 升级，并减去升级所需的经验值
-                exp -= level * 100;
+                //exp -= level * 100;
                 level++;
 
                 // 检查是否达到解锁新行动的等级
@@ -81,6 +165,7 @@
             // 更新显示的等级和经验值
             document.getElementById('level').textContent = "Level: " + level;
             document.getElementById('exp').textContent = "Experience: " + exp;
+            document.getElementById('rank').textContent = "Rank: " + ranks[rankIndex].rank;
         }
     </script>
 </body>
