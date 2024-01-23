@@ -1,46 +1,45 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="zh-CN">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>我的网站首页...</title>
-<style>
-    .link-container {
-        display: flex;
-    }
-    .link {
-        font-size:1.2em;
-        color:#0781de;
-        cursor:pointer;
-        z-index:9999;
-        border-radius:5px;
-        background:rgb(255, 255, 255);
-        border:0.1px solid rgb(238, 238, 238);
-        box-shadow:rgb(0 0 0 / 7%) 0px 0px 0px 1px, rgb(0 0 0 / 12%) 0px 2px 3px 0px;
-        white-space:nowrap;
-        overflow:hidden;
-        text-overflow:ellipsis;
-        text-decoration:none;
-        padding:10px;
-        margin-right: 2em;  /* 在这里添加右边距 */
-    }
-</style>
+    <meta charset="UTF-8">
+    <title>LuYue's Web Hub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .link {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px;
+            display: inline-block;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .link:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-<p>欢迎来到我的网站。</p>
-
-<div class="link-container">
-    <a href="http://kae1bot.github.io/game.html" class="link" target="_blank">
-    我的小游戏<br>
-    </a>
-
-    <a href="http://139.180.178.214:2023/#" class="link" target="_blank">
-        我的Web ChatGPT 3.5 <br>
-    </a>
-    
-    <a href="http://20.200.209.173:1002/#" class="link" target="_blank">
-        我的Web ChatGPT 4.0 <br>
-    </a>
-</div>
-
+    <div class="container">
+        <h1>欢迎来到LuYue的网站集合</h1>
+        <a href="http://emby.luyue.icu" class="link">Emby</a>
+        <a href="http://qbit.luyue.icu" class="link">Qbittorrent</a>
+        <a href="http://radarr.luyue.icu" class="link">Radarr</a>
+        <a href="http://sonarr.luyue.icu" class="link">Sonarr</a>
+        <a href="http://csf.luyue.icu" class="link">CSF</a>
+        <a href="http://prowlarr.luyue.icu" class="link">Prowlarr</a>
+    </div>
 </body>
 </html>
